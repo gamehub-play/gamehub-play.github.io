@@ -1371,6 +1371,10 @@ html body .bd-splash.nl>#bd-sp-go{position:absolute!important;width:1px!importan
 .nl-card:active{transform:rotateX(var(--rx)) rotateY(var(--ry)) scale(.975)}
 .nl-card:active::after{opacity:1;--c1:#fff}
 .nl-mid{display:flex;flex-direction:column;align-items:center;gap:clamp(8px,1.4vh,16px);justify-content:center;width:100%;max-width:1240px}
+.nl-top{display:flex;justify-content:center;width:100%;flex:none}
+html body .bd-splash.nl .nl-player{flex-direction:column!important;gap:8px!important;width:auto!important;flex:none!important;padding:10px 14px!important;border-radius:22px}
+html body .bd-splash.nl .nl-player #bd-sp-lvl{width:min(260px,70vw)!important;min-width:0!important}
+html body .bd-splash.nl .nl-player #bd-sp-name{width:min(260px,70vw)!important;max-width:100%}
 .nl-player{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:22px;background:var(--glass);box-shadow:0 0 0 1.5px var(--edge) inset;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 html body .bd-splash.nl .nl-player #bd-sp-lvl{margin:0!important;min-width:170px;padding:6px 12px!important;background:rgba(255,255,255,.07)!important;border-color:rgba(255,255,255,.18)!important;font-size:14px}
 html body .bd-splash.nl .nl-player #bd-sp-name{margin:0!important;width:210px!important;max-width:42vw;padding:10px 14px!important;border-radius:14px!important;font-size:15px!important;background:rgba(10,6,32,.55)!important;border:1.5px solid rgba(255,255,255,.2)!important;color:var(--ink)!important;transition:border-color .2s,box-shadow .2s,width .3s}
@@ -1439,12 +1443,12 @@ function build(sp){
  var root=document.createElement('div');root.className='nl-root';
  var h='<div class="nl-bg"></div><div class="nl-aur"><i></i><i></i><i></i></div><canvas class="nl-fx"></canvas>';
  h+='<header class="nl-hero"><h1 class="nl-word"><span>Game</span><span class="h">HUB</span></h1><p class="nl-tag" data-ar="كل ألعابنا في مكان واحد" data-en="All our games in one place"></p></header>';
- h+='<div class="nl-mid"><div class="nl-player"></div>';
+ h+='<div class="nl-top"><div class="nl-player"></div></div><section class="nl-cards">';
+ GAMES.forEach(function(g){h+='<button type="button" class="nl-card" data-g="'+g[0]+'" style="--c1:'+g[5]+';--c2:'+g[6]+'"><span class="nl-art">'+ART[g[0]]+'</span><span class="nl-name" data-ar="'+g[1]+'" data-en="'+g[2]+'"></span><span class="nl-desc" data-ar="'+g[3]+'" data-en="'+g[4]+'"></span><span class="nl-play" data-ar="العب" data-en="Play"></span></button>'});
+ h+='</section><div class="nl-mid">';
  h+='<nav class="nl-dock">';
  DOCK.forEach(function(d){h+='<button type="button" class="nl-d '+d[0]+'" data-t="'+d[1]+'">'+ICON[d[0]]+'<b data-ar="'+d[2]+'" data-en="'+d[3]+'"></b></button>'});
- h+='</nav></div><section class="nl-cards">';
- GAMES.forEach(function(g){h+='<button type="button" class="nl-card" data-g="'+g[0]+'" style="--c1:'+g[5]+';--c2:'+g[6]+'"><span class="nl-art">'+ART[g[0]]+'</span><span class="nl-name" data-ar="'+g[1]+'" data-en="'+g[2]+'"></span><span class="nl-desc" data-ar="'+g[3]+'" data-en="'+g[4]+'"></span><span class="nl-play" data-ar="العب" data-en="Play"></span></button>'});
- h+='</section>';
+ h+='</nav></div>';
  root.innerHTML=h;
  sp.appendChild(root);
  var pl=root.querySelector('.nl-player');pl.appendChild(lvl);pl.appendChild(nm);
