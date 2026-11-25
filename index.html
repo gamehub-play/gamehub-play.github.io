@@ -1441,7 +1441,7 @@ function build(sp){
  h+='<header class="nl-hero"><h1 class="nl-word"><span>Game</span><span class="h">HUB</span></h1><p class="nl-tag" data-ar="كل ألعابنا في مكان واحد" data-en="All our games in one place"></p></header>';
  h+='<section class="nl-cards">';
  GAMES.forEach(function(g){h+='<button type="button" class="nl-card" data-g="'+g[0]+'" style="--c1:'+g[5]+';--c2:'+g[6]+'"><span class="nl-art">'+ART[g[0]]+'</span><span class="nl-name" data-ar="'+g[1]+'" data-en="'+g[2]+'"></span><span class="nl-desc" data-ar="'+g[3]+'" data-en="'+g[4]+'"></span><span class="nl-play" data-ar="العب" data-en="Play"></span></button>'});
- h+='</section><div class="nl-mid"><div class="nl-player"></div><button type="button" class="nl-cta" data-ar="ابدأ" data-en="Start"></button>';
+ h+='</section><div class="nl-mid"><div class="nl-player"></div>';
  h+='<nav class="nl-dock">';
  DOCK.forEach(function(d){h+='<button type="button" class="nl-d '+d[0]+'" data-t="'+d[1]+'">'+ICON[d[0]]+'<b data-ar="'+d[2]+'" data-en="'+d[3]+'"></b></button>'});
  h+='</nav></div>';
@@ -1451,9 +1451,12 @@ function build(sp){
  function label(){var e=isEn();root.querySelectorAll('[data-ar]').forEach(function(x){var v=e?x.getAttribute('data-en'):x.getAttribute('data-ar');if(x.textContent!==v)x.textContent=v})}
  label();
  new MutationObserver(label).observe(document.querySelector('.bd-langbar')||document.body,{attributes:true,subtree:true,attributeFilter:['class']});
- root.querySelector('.nl-cta').onclick=function(){go.click()};
+ 
  root.querySelectorAll('.nl-d').forEach(function(b){b.onclick=function(){var t=tiles[b.dataset.t||'help'];if(t)t.click()}});
- function launch(id){go.click();var n=0,iv=setInterval(function(){var c=document.getElementById('gp-'+id);if(c){clearInterval(iv);c.click()}else if(++n>40)clearInterval(iv)},100)}
+ function launch(id){go.click();var n=0,iv=setInterval(function(){var c=document.getElementById('gp-'+id);if(c){clearInterval(iv);c.click();direct(id)}else if(++n>40)clearInterval(iv)},100)}
+ function direct(id){var T={blockade:['#bd-startbtn'],bus:['#bs-hgo','.bs-tier.t1:not(.lock),.bs-tier.t0','.bs-lvbtn.cur'],kitchen:['#kt-off','#kt-go'],registry:['#rg-go','#rg-hx']}[id],k='nl-seen-'+id,i=0,m=0;
+  if(id==='bus'){try{if(!localStorage.getItem(k)){localStorage.setItem(k,'1');T=[]}}catch(e){}}
+  var iv2=setInterval(function(){if(i>=T.length){clearInterval(iv2);return}var b=document.querySelector(T[i]);if(b&&b.offsetParent){b.click();i++;m=0}else if(++m>30)clearInterval(iv2)},350)}
  root.querySelectorAll('.nl-card').forEach(function(c){
   c.onclick=function(){launch(c.dataset.g)};
   c.addEventListener('pointermove',function(e){if(e.pointerType==='touch')return;var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;c.style.setProperty('--mx',x*100+'%');c.style.setProperty('--my',y*100+'%');c.style.setProperty('--ry',((x-.5)*10)+'deg');c.style.setProperty('--rx',((.5-y)*8)+'deg')});
