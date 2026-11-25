@@ -761,6 +761,17 @@
 @media (min-width: 900px) and (min-height: 700px) { .bd-picker { min-height: calc(100vh / 1.2) !important; } .bd-splash { min-height: calc(100vh / 1.25) !important; } }
 @media (min-width: 900px) and (min-height: 860px) { .bd-picker { min-height: calc(100vh / 1.4) !important; } .bd-splash { min-height: calc(100vh / 1.5) !important; } }
 @media (min-width: 1500px) and (min-height: 1000px) { .bd-picker { min-height: calc(100vh / 1.7) !important; } }
+
+/* GameHUB centerpiece + hover motion */
+.bd-splash .bd-sp-title { font-size:clamp(60px,15vw,96px) !important; margin-top:26px !important; line-height:1.05; filter:drop-shadow(0 8px 18px rgba(22,163,74,.35)); animation:hub-shift 6s linear infinite, gh-float 3.2s ease-in-out infinite !important; }
+@keyframes gh-float { 0%,100% { translate:0 0; } 50% { translate:0 -8px; } }
+@media (hover:hover) and (pointer:fine) {
+  .bd-host button:hover:not(:disabled), .gp-card:hover, .bs-tier:hover, .bs-lvbtn:hover { animation:gh-wob .5s ease; filter:brightness(1.1) drop-shadow(0 8px 14px rgba(34,197,94,.45)); transform:translateY(-4px) scale(1.05); cursor:pointer; }
+  .bd-host button:active:not(:disabled), .gp-card:active { transform:scale(.92) !important; animation:none; }
+  .gp-card:hover .gp-art, .gp-card:hover svg { animation:gh-bounce .6s ease infinite alternate; }
+}
+@keyframes gh-wob { 0% { rotate:0; } 25% { rotate:-1.6deg; } 60% { rotate:1.4deg; } 100% { rotate:0; } }
+@keyframes gh-bounce { from { translate:0 0; } to { translate:0 -6px; } }
 `;var ac=`
 .kn-wrap{position:fixed;inset:0;z-index:9990;background:#0a0a0a;overflow:hidden;display:flex;align-items:center;justify-content:center;font-family:inherit;direction:rtl;animation:kn-bg .2s both}
 .kn-wrap.win{background:rgba(10,10,10,.86);pointer-events:none}
@@ -815,7 +826,6 @@
       <br>\u2022 \u0643\u0644 \u0645\u0627 \u062A\u0643\u0633\u0628 \u0628\u062A\u0627\u062E\u062F \u0639\u0645\u0644\u0627\u062A \u{1FA99} \u062A\u0641\u062A\u062D \u0628\u064A\u0647\u0627 \u0634\u062E\u0635\u064A\u0627\u062A \u0648\u0623\u0644\u0648\u0627\u0646 \u0648\u0623\u0634\u0643\u0627\u0644 \u0641\u064A \u0627\u0644\u0645\u062A\u062C\u0631.
     </details>`,e.appendChild(v);let K=T("div","bd-wrap bd-splash");K.innerHTML=q+`
     <div class="bd-sp-bg"><i>\u{1F9F1}</i><i>\u{1F68C}</i><i>\u{1F373}</i><i>\u{1F4CB}</i><i>\u{1F3AF}</i></div>
-    <div class="bd-sp-logo hub-logo"><span>\u{1F3AE}</span><u></u></div>
     <div class="bd-sp-title">GameHUB</div>
     <div class="bd-sub bd-sp-sub">\u0643\u0644 \u0623\u0644\u0639\u0627\u0628\u0646\u0627 \u0641\u064A \u0645\u0643\u0627\u0646 \u0648\u0627\u062D\u062F</div>
     <div class="bd-sp-lvl" id="bd-sp-lvl"></div>
