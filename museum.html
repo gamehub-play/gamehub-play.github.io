@@ -3866,7 +3866,7 @@ function cctvTick(dt){var inRoom=pos.x>22.5&&pos.z>20.4;CC.t+=dt;CC.mats.forEach
 
 /* ---------- lights ---------- */
 function lightsSeq(){var fx=window.__museum_fix;G.st='lights';hudUpdate();
- if(!PLS){PLS=[];for(var a=0;a<5;a++){var pl=new THREE.PointLight(0xdfeeff,0,26,1.8);pl.position.set(0,H-1,-22+a*11);scene.add(pl);PLS.push(pl)}}
+ if(!PLS){PLS=[];for(var a=0;a<5;a++){var pl=new THREE.PointLight(0xdfeeff,0,21,1.8);pl.position.set(0,H-1,-22+a*11);scene.add(pl);PLS.push(pl)}}
  for(var a=0;a<5;a++){(function(a){setTimeout(function(){for(var k=0;k<3;k++){(function(k){setTimeout(function(){var on=k===2;fx.forEach(function(f){if(f.userData.grp===a&&!f.userData.dead&&!f.userData.redf)f.material.emissiveIntensity=on?.85:(k===0?.6:0)});PLS[a].intensity=on?2.1:(k===0?1.2:0);if(k!==1)sfxTak()},k*150)})(k)}},a*850+300)})(a)}
  setTimeout(function(){window.__sconces.forEach(function(s){s.material.emissiveIntensity=1.3});AMB.intensity=.3;MOON.intensity=.35;G.lightsOn=true;sfxHum(true);G.breakerOn=true;
   setTimeout(function(){G.st='begin';hudUpdate();cenText(T('begin'),'',2600);setTimeout(function(){startRound(1)},3400)},900)},5200)}
