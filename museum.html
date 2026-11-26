@@ -3393,14 +3393,14 @@ function build(){
  // paintings on right wall and back/front wall
  var pi=0;for(i=0;i<8;i++){painting(W/2-.1,3.2,-24+i*6.5,-Math.PI/2,2.4+(i%3)*.5,3+(i%2)*.7,pi++,'painting '+(pi))}
  for(i=0;i<6;i++){painting(-17+i*7,3.2,-D/2+.1,0,2.6,3.2,pi++,'painting '+(pi))}
- for(i=0;i<6;i++){painting(-17+i*7,3.2,D/2-.1,Math.PI,2.6,3.2,pi++,'painting '+(pi))}
+ [-17,-11,-6,6,11,17].forEach(function(px){painting(px,3.2,D/2-.1,Math.PI,2.6,3.2,pi++,'painting '+(pi))});
  // dinosaurs center hall
  dino(0,-8,1.6,0);dino(0,12,1.2,Math.PI*.15);
  // statues along right side and masks + vitrines
  for(i=0;i<5;i++)statue(13.2,-20+i*9,-Math.PI/2*(1+.05*i),i%2,'statue '+(i+1));
  for(i=0;i<4;i++)mask(-17,-20+i*13,'mask '+(i+1),[0x8a5a2a,0x6b7a50,0x9a3a2a,0x50607a][i]);
  for(i=0;i<5;i++)vitrine(8+(i%2)*2,-22+i*10,'artifact '+(i+1));
- for(i=0;i<3;i++)bench(-8+i*8,26,0);
+ [-8,8].forEach(function(bx){bench(bx,26,0)});
  // ceiling lamp fixtures (long tubes)
  window.__museum_fix=[];for(var a=0;a<5;a++)for(var b=0;b<2;b++){var t=box(.25,.1,5,new THREE.MeshStandardMaterial({color:0xddeeff,emissive:0xcfe8ff,emissiveIntensity:0}),-8+b*16,H-.1,-22+a*11);t.userData.grp=a;window.__museum_fix.push(t)}
 }
@@ -3435,7 +3435,7 @@ function extras(){
  var rt=cv(64,256,function(g,w,h){g.fillStyle='#4a1114';g.fillRect(0,0,w,h);g.strokeStyle='#b89a50';g.lineWidth=3;g.strokeRect(4,4,w-8,h-8);for(var i=0;i<30;i++){g.fillStyle='rgba(0,0,0,'+rnd()*.2+')';g.fillRect(rnd()*w,rnd()*h,3,8)}});
  [[ -8,0],[8,0]].forEach(function(r){var m=new THREE.Mesh(new THREE.PlaneGeometry(2.2,50),new THREE.MeshStandardMaterial({map:rt,roughness:.95}));m.rotation.x=-Math.PI/2;m.position.set(r[0],.015,0);scene.add(m)});
  // dust motes
- var n=700,gp=new Float32Array(n*3);for(i=0;i<n;i++){gp[i*3]=(rnd()-.5)*W;gp[i*3+1]=rnd()*H;gp[i*3+2]=(rnd()-.5)*D}
+ var n=260,gp=new Float32Array(n*3);for(i=0;i<n;i++){gp[i*3]=(rnd()-.5)*W;gp[i*3+1]=rnd()*H;gp[i*3+2]=(rnd()-.5)*D}
  var ge=new THREE.BufferGeometry();ge.setAttribute('position',new THREE.BufferAttribute(gp,3));var dust=new THREE.Points(ge,new THREE.PointsMaterial({color:0xaab4c8,size:.035,transparent:true,opacity:.5,depthWrite:false,fog:false}));scene.add(dust);window.__dust=dust;
  // moonbeams through windows
  var bm=new THREE.MeshBasicMaterial({color:0x7f9cff,transparent:true,opacity:.05,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide,fog:false});
@@ -3488,7 +3488,7 @@ var TX={
 ar:{title:'المتحف',m_door:'ادخل المتحف',m_breaker:'لاقي صندوق الكهربا',m_report:'دوّر على الحاجة الغلط في المتحف وبلّغ عنها',m_run:'اجري على الباب الأخضر!',
  h1:'تلميح: صندوق الكهربا غالباً في مكان للموظفين بس',h2:'تلميح: جرّب الحيطة اليمين في آخر المتحف',
  round:'الجولة',begin:'بدانا',conf_q:'هل فعلاً عايز تأكد؟',conf_y:'أيوه، بلّغ (Enter)',conf_n:'لأ (Esc)',
- p_flip:'E : شغّل الكهربا',p_cam:'E : بدّل الكاميرات',p_rec:'R : سجّل في الدفتر   ·   كليك : بلّغ',
+ p_flip:'E : شغّل الكهربا',p_door:'E أو كليك : افتح الباب',p_cam:'E : بدّل الكاميرات',p_rec:'R : سجّل في الدفتر   ·   كليك : بلّغ',
  nb_title:'دفتر الملاحظات',nb_empty:'لسه مفيش حاجة مسجّلة',nb_del:'Backspace : امسح آخر سطر    Tab : اقفل',nb_rec:'اتسجّل',nb_sus:'مشبوه',
  lw_t:'بلاغ غلط',lw:'الحاجة دي كانت سليمة. الحاجة الغلط الحقيقية لسه في المتحف.',
  lf_t:'إنذار كاذب',lf:'ما كانش في خطر حقيقي. خرجت في الوقت الغلط.',
@@ -3503,7 +3503,7 @@ ar:{title:'المتحف',m_door:'ادخل المتحف',m_breaker:'لاقي صن
 en:{title:'MUSEUM',m_door:'Enter the museum',m_breaker:'Find the electrical breaker',m_report:'Find what is wrong in the museum and report it',m_run:'RUN to the green door!',
  h1:'Hint: the breaker is probably in a staff-only area',h2:'Hint: try the right wall at the far end of the museum',
  round:'Round',begin:'We begin',conf_q:'Are you sure you want to report this?',conf_y:'Yes, report (Enter)',conf_n:'No (Esc)',
- p_flip:'E : switch the power on',p_cam:'E : switch cameras',p_rec:'R : note it down   ·   Click : report',
+ p_flip:'E : switch the power on',p_door:'E or click : open the door',p_cam:'E : switch cameras',p_rec:'R : note it down   ·   Click : report',
  nb_title:'Notebook',nb_empty:'Nothing noted yet',nb_del:'Backspace : delete last line    Tab : close',nb_rec:'Noted',nb_sus:'suspicious',
  lw_t:'Wrong report',lw:'That one was fine. The real problem is still somewhere in the museum.',
  lf_t:'False alarm',lf:'There was no real danger. You ran at the wrong time.',
@@ -3699,14 +3699,14 @@ function gpWorld(){
  var el_=new THREE.PointLight(0x30ff70,.9,9,1.8);el_.position.set(ex,4.3,-D/2+1.5);scene.add(el_);
  GW.escape={x:ex,z:-D/2+.9};
  // ---- regions & colliders ----
- rect(-W/2+.7,W/2-.7,-D/2+.7,D/2-.7);rect(-1.1,1.1,D/2-1,D/2+1.3,function(){return G.doorOpen>.5});rect(-13.5,13.5,D/2+1.2,D/2+16,null);
+ rect(-W/2+.7,W/2-.7,-D/2+.7,D/2-.7);rect(-1.3,1.3,D/2-1,D/2+1.7,function(){return G.doorOpen>.5});rect(-13.5,13.5,D/2+1.2,D/2+16,null);
  [-12,12].forEach(function(x){for(var k=0;k<4;k++)col(x-.75,x+.75,-18+k*12-.75,-18+k*12+.75)});
  col(-7,7,-11.7,-4.3);col(-5.5,5.5,9,15);col(-11.4,-8.6,14.6,17.4);col(-17.9,-16.1,18.2,19.8);col(13.2,14.8,21.2,22.8);
  for(i=0;i<5;i++){col(13.2-1,13.2+1,-20+i*9-1,-20+i*9+1);}
  for(i=0;i<4;i++)col(-18,-16,-20+i*13-1,-20+i*13+1);
  for(i=0;i<5;i++){var vx=8+(i%2)*2,vz=-22+i*10;col(vx-.9,vx+.9,vz-.9,vz+.9)}
  for(i=0;i<3;i++)col(-8+i*8-1.1,-8+i*8+1.1,25.6,26.4);
- col(-1.7,1.7,D/2-.35,D/2+.3);
+
  signsUpdate=function(){GW.signStaff.material.map=canvasLabel(T('staff'),256,64,'#222','#9a9a8a','bold 34px Georgia,"Geeza Pro",serif');GW.signStaff.material.needsUpdate=true;GW.signSec.material.map=canvasLabel(T('security'),256,64,'#222','#9a9a8a','bold 34px Georgia,"Geeza Pro",serif');GW.signSec.material.needsUpdate=true;GW.exitSign.material.emissiveMap=canvasLabel(T('exit'),256,76,'#fff','#000','bold 54px Georgia,"Geeza Pro",serif');GW.exitSign.material.needsUpdate=true};
  signsUpdate();
  // ---- fossil cases ----
@@ -3927,7 +3927,7 @@ function frame2(ts){requestAnimationFrame(frame2);var raw=Math.min(.5,(ts-(frame
 G.tick=function(dt){
  var now=G.t;spot.intensity+=((G.lightsOn?(pos.x>22.4?.4:.9):2.6)-spot.intensity)*Math.min(1,dt*3);ambTick(dt);
  // door
- if(G.st==='door'){if(G.doorStart<0&&now>2.4){G.doorStart=now;sfxCreak(7.2);doorDust()}
+ if(G.st==='door'){
   if(G.doorStart>=0){var t=Math.min(1,(now-G.doorStart)/7.6),e=t*t*(3-2*t);e=Math.pow(e,1.15)+Math.sin(t*38)*.012*(1-t)*(t>.05?1:0);var a=Math.max(0,e)*1.85;GW.doorL.rotation.y=a;GW.doorR.rotation.y=-a;G.doorOpen=t;if(t>=1){G.st='dark';G.darkT=0;hudUpdate();toast(T('m_breaker'),3500)}}}
  else if(G.doorOpen<1){G.doorOpen=1}
  if(G.dust)dustTick(dt);
@@ -3938,6 +3938,7 @@ G.tick=function(dt){
  if(G.lightsOn){window.__museum_fix.forEach(function(f){var u=f.userData;if(u.dead){f.material.emissiveIntensity=0}else if(u.flick){f.material.emissiveIntensity=Math.random()<.5?.85:.05}else if(u.redf){f.material.emissive.setHex(0xff2200);f.material.emissiveIntensity=.8}else{f.material.emissive.setHex(0xcfe8ff)}})}
  // dark phase: hints + breaker interaction
  var pr='';
+ if(G.st==='door'&&G.doorStart<0&&nearDoor())pr=T('p_door');
  if(G.st==='dark'){G.darkT=(G.darkT||0)+dt;if(pos.z<27)G.inside=true;if(G.inside){G.searchT=(G.searchT||0)+dt;if(!G.h1&&G.searchT>150){G.h1=1;toast(T('h1'),6000)}if(!G.h2&&G.searchT>320){G.h2=1;toast(T('h2'),6000)}}
   var dx=GW.panelC.x-pos.x,dz=GW.panelC.z-pos.z,d=Math.hypot(dx,dz);GW.led.material.color.setHex(Math.sin(now*3)>0?0xcc0000:0x440000);
   if(d<2.7){var fwd=new THREE.Vector3(0,0,-1).applyEuler(cam.rotation);if((fwd.x*dx+fwd.z*dz)/d>.35)pr=T('p_flip')}}
@@ -3950,15 +3951,18 @@ G.tick=function(dt){
   UI.cam.className='mh-cam'+(pos.x>22.5&&pos.z>20.4?' on':'');
  }else{if(G.hover){setOutline(G.hover,false);G.hover=null}}
  prompt_(G.note||G.dlg?'':pr)};
+function nearDoor(){return pos.z>D/2+.2&&pos.z<D/2+6.5&&Math.abs(pos.x)<3.5}
+G.openDoor=function(){if(G.st==='door'&&G.doorStart<0&&nearDoor()){G.doorStart=G.t;sfxCreak(7.2);doorDust()}};
 G.interact=function(){
+ if(G.st==='door'){G.openDoor();return}
  if(G.st==='dark'){var dx=GW.panelC.x-pos.x,dz=GW.panelC.z-pos.z,d=Math.hypot(dx,dz);if(d<2.7){var fwd=new THREE.Vector3(0,0,-1).applyEuler(cam.rotation);if((fwd.x*dx+fwd.z*dz)/d>.35){flipBreaker()}}}
  else if(G.st==='play'&&G.lightsOn&&pos.x>22.5&&pos.z>20.4&&Math.hypot(pos.x-GW.secC.x,pos.z-GW.secC.z)<3.4){G.camShift=(G.camShift+1)%CAMS.length;cctvLabels();gnz(.05,2000,2,.2,.1);gtone(1800,1800,.04,'square',.04,.1)}};
 function flipBreaker(){if(G.flipped)return;G.flipped=1;sfxClunk();var t0=performance.now();(function an(){var t=Math.min(1,(performance.now()-t0)/450);GW.lever.rotation.x=t*2.5;if(t<1)requestAnimationFrame(an)})();GW.led.material.color.setHex(0x00cc44);setTimeout(lightsSeq,900)}
 
 /* ---------- dust at the door ---------- */
-function doorDust(){var n=320,p=new Float32Array(n*3),v=[];for(var i=0;i<n;i++){p[i*3]=(Math.random()-.5)*3;p[i*3+1]=Math.random()*4.4;p[i*3+2]=D/2-.2-Math.random()*1.5;v.push([(Math.random()-.5)*.08,.02+Math.random()*.06,-.05-Math.random()*.2])}
- var ge=new THREE.BufferGeometry();ge.setAttribute('position',new THREE.BufferAttribute(p,3));var m=new THREE.Points(ge,new THREE.PointsMaterial({color:0xcfc8b8,size:.06,transparent:true,opacity:.0,depthWrite:false,fog:false}));scene.add(m);G.dust={m:m,v:v,t:0}}
-function dustTick(dt){var d=G.dust;d.t+=dt;var p=d.m.geometry.attributes.position.array;for(var i=0;i<d.v.length;i++){p[i*3]+=d.v[i][0]*dt;p[i*3+1]+=d.v[i][1]*dt;p[i*3+2]+=d.v[i][2]*dt}d.m.geometry.attributes.position.needsUpdate=true;d.m.material.opacity=Math.min(.7,d.t/1.5)*Math.max(0,1-d.t/18);if(d.t>18){scene.remove(d.m);G.dust=null}}
+function doorDust(){var n=70,p=new Float32Array(n*3),v=[];for(var i=0;i<n;i++){p[i*3]=(Math.random()-.5)*3;p[i*3+1]=Math.random()*4.4;p[i*3+2]=D/2-.2-Math.random()*1.5;v.push([(Math.random()-.5)*.08,.02+Math.random()*.06,-.05-Math.random()*.2])}
+ var ge=new THREE.BufferGeometry();ge.setAttribute('position',new THREE.BufferAttribute(p,3));var m=new THREE.Points(ge,new THREE.PointsMaterial({color:0xcfc8b8,size:.035,transparent:true,opacity:.0,depthWrite:false,fog:false}));scene.add(m);G.dust={m:m,v:v,t:0}}
+function dustTick(dt){var d=G.dust;d.t+=dt;var p=d.m.geometry.attributes.position.array;for(var i=0;i<d.v.length;i++){p[i*3]+=d.v[i][0]*dt;p[i*3+1]+=d.v[i][1]*dt;p[i*3+2]+=d.v[i][2]*dt}d.m.geometry.attributes.position.needsUpdate=true;d.m.material.opacity=Math.min(.3,d.t/1.5*.3)*Math.max(0,1-d.t/10);if(d.t>10){scene.remove(d.m);G.dust=null}}
 
 /* ---------- init ---------- */
 function gpInit(){
@@ -3972,7 +3976,7 @@ function gpInit(){
   if(G.dlg){if(k==='enter'||k==='y'){e.preventDefault();G.confirm(true)}else if(k==='escape'||k==='n'){G.confirm(false)}return}
   if(G.st==='end'&&k==='enter'){G.restart();return}
   if(k==='e')G.interact();else if(k==='r')G.record();else if(k==='backspace'&&G.note){G.rec.pop();nbUpdate()}});
- rend.domElement.addEventListener('click',function(){if(document.pointerLockElement===rend.domElement)G.click()});
+ rend.domElement.addEventListener('click',function(){if(G.st==='door'){G.openDoor();return}if(document.pointerLockElement===rend.domElement)G.click()});
  document.addEventListener('pointerlockchange',function(){var l=document.pointerLockElement===rend.domElement;if(l){G.everLocked=true;G.paused=false;UI.pause.className='mh-pause'}else if(G.everLocked&&G.st!=='end'){if(G.dlg){G.dlg=false;UI.dlg.className='mh-dlg';G.target=null}G.paused=true;UI.pause.className='mh-pause on'}});
  UI.pause.addEventListener('click',function(){rend.domElement.requestPointerLock&&rend.domElement.requestPointerLock()});
  addEventListener('resize',function(){rend.setSize(innerWidth,innerHeight);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix()});
@@ -3987,13 +3991,13 @@ function touchInit(){
  function jend(e){keys.w=keys.s=keys.a=keys.d=false;jo=null}js.addEventListener('touchend',jend);js.addEventListener('touchcancel',jend);
  lk.addEventListener('touchstart',function(e){gaInit();var t=e.changedTouches[0];lo={id:t.identifier,x:t.clientX,y:t.clientY,x0:t.clientX,y0:t.clientY,t:Date.now()};e.preventDefault()},{passive:false});
  lk.addEventListener('touchmove',function(e){for(var i=0;i<e.changedTouches.length;i++){var t=e.changedTouches[i];if(lo&&t.identifier===lo.id&&canMove()){yaw-=(t.clientX-lo.x)*.006;pitch=Math.max(-1.3,Math.min(1.3,pitch-(t.clientY-lo.y)*.006));lo.x=t.clientX;lo.y=t.clientY}}e.preventDefault()},{passive:false});
- lk.addEventListener('touchend',function(e){if(lo&&Date.now()-lo.t<250&&Math.hypot(e.changedTouches[0].clientX-lo.x0,e.changedTouches[0].clientY-lo.y0)<12&&G.st==='play'&&!G.dlg&&!G.note){var o=pick();if(o)G.askReport(o)}lo=null});
+ lk.addEventListener('touchend',function(e){if(lo&&Date.now()-lo.t<250&&Math.hypot(e.changedTouches[0].clientX-lo.x0,e.changedTouches[0].clientY-lo.y0)<12&&G.st==='play'&&!G.dlg&&!G.note){var o=pick();if(o)G.askReport(o)}else if(lo&&G.st==='door'&&Date.now()-lo.t<250)G.openDoor();lo=null});
  function btn(txt,r,b,fn){var d=document.createElement('div');d.className='mh-tb';d.textContent=txt;d.style.right=r+'px';d.style.bottom=b+'px';d.addEventListener('touchstart',function(e){e.preventDefault();e.stopPropagation();gaInit();fn(d)},{passive:false});root.appendChild(d)}
  btn('E',14,14,function(){G.interact()});btn('F',14,78,function(d){spot.visible=!spot.visible;d.className='mh-tb'+(spot.visible?'':' on')});btn('R',78,14,function(){G.record()});btn('N',78,78,function(){nbToggle()});btn('>>',142,14,function(d){keys.shift=!keys.shift;d.className='mh-tb'+(keys.shift?' on':'')});
  UI.end.addEventListener('touchstart',function(e){e.preventDefault();if(G.st==='end')G.restart()},{passive:false});G.paused=false;
 }
 
-window.Museum={getScene:function(){return scene},G:G,GD:GD,GW:GW,CC:CC,startRound:startRound,lightsSeq:lightsSeq,startLive:startLive,pick:pick,pool:function(){return G.pool},open:open,lightsSeq:lightsSeq,set:function(x,z,y,p){pos.x=x;pos.z=z;yaw=y;pitch=p||0},objs:OBJS,lights:function(on){window.__museum_fix&&0;scene.children.forEach(function(c){if(c.isAmbientLight)c.intensity=on?1.4:.5})}};
+window.Museum={getPos:function(){return [pos.x,pos.z]},getScene:function(){return scene},G:G,GD:GD,GW:GW,CC:CC,startRound:startRound,lightsSeq:lightsSeq,startLive:startLive,pick:pick,pool:function(){return G.pool},open:open,lightsSeq:lightsSeq,set:function(x,z,y,p){pos.x=x;pos.z=z;yaw=y;pitch=p||0},objs:OBJS,lights:function(on){window.__museum_fix&&0;scene.children.forEach(function(c){if(c.isAmbientLight)c.intensity=on?1.4:.5})}};
 })();
 </script>
 <script>(function(){var b=document.getElementById('go');b.onclick=function(){if((window.__mu||0)<8){document.getElementById('ld').textContent='Still loading, try again in a few seconds';return}document.getElementById('ov').style.display='none';Museum.open();var c=document.querySelector('canvas');c&&c.requestPointerLock&&c.requestPointerLock()};var t=setInterval(function(){var l=document.getElementById('ld');l.textContent=(window.__mu||0)<8?'Loading '+(window.__mu||0)+'/8...':'Ready';if((window.__mu||0)>=8)clearInterval(t)},300);})()</script>
