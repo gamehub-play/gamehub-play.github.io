@@ -3367,7 +3367,7 @@ function bench(x,z,ry){var g=new THREE.Group();g.position.set(x,0,z);g.rotation.
 
 function build(){
  var ft=floorTex();ft.wrapS=ft.wrapT=THREE.RepeatWrapping;ft.repeat.set(W/4,D/4);
- var fl=new THREE.Mesh(new THREE.PlaneGeometry(W,D),new THREE.MeshStandardMaterial({map:ft,roughness:.35,metalness:.1}));fl.rotation.x=-Math.PI/2;scene.add(fl);
+ var fl=new THREE.Mesh(new THREE.PlaneGeometry(W,D),new THREE.MeshStandardMaterial({map:ft,roughness:.52,metalness:.05}));fl.rotation.x=-Math.PI/2;scene.add(fl);
  var ce=new THREE.Mesh(new THREE.PlaneGeometry(W,D),std(0x1c1a18,.9));ce.rotation.x=Math.PI/2;ce.position.y=H;scene.add(ce);
  var wt=wallTex();wt.wrapS=wt.wrapT=THREE.RepeatWrapping;var wm=new THREE.MeshStandardMaterial({map:wt,roughness:.9});
  // back wall (z=-D/2), front wall (z=+D/2)
@@ -3913,7 +3913,7 @@ function frame2(ts){requestAnimationFrame(frame2);var raw=Math.min(.5,(ts-(frame
  rend.render(scene,cam)}
 
 G.tick=function(dt){
- var now=G.t;ambTick(dt);
+ var now=G.t;spot.intensity+=((G.lightsOn?.9:2.6)-spot.intensity)*Math.min(1,dt*3);ambTick(dt);
  // door
  if(G.st==='door'){if(G.doorStart<0&&now>2.4){G.doorStart=now;sfxCreak(7.2);doorDust()}
   if(G.doorStart>=0){var t=Math.min(1,(now-G.doorStart)/7.6),e=t*t*(3-2*t);e=Math.pow(e,1.15)+Math.sin(t*38)*.012*(1-t)*(t>.05?1:0);var a=Math.max(0,e)*1.85;GW.doorL.rotation.y=a;GW.doorR.rotation.y=-a;G.doorOpen=t;if(t>=1){G.st='dark';G.darkT=0;hudUpdate();toast(T('m_breaker'),3500)}}}
