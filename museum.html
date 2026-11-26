@@ -3849,7 +3849,7 @@ function cctvTick(dt){var inRoom=pos.x>22.5&&pos.z>20.4;CC.t+=dt;CC.mats.forEach
  if(!inRoom||!G.lightsOn)return;CC.q=(CC.q||0)+dt;if(CC.q<.16)return;CC.q=0;var ci=cctvIdx(CC.i%6);CC.i++;
  var sv=spot.visible,gv=GD.g?GD.g.visible:true,ps=PSH?PSH.g.visible:false;spot.visible=false;if(PSH)PSH.g.visible=false;
  var showM=CC.mon.cam===ci&&!(G.live&&G.live.kind==='emerge'&&G.live.on);if(showM){MON.visible=true;MON.position.set(CAMS[ci].m[0],0,CAMS[ci].m[1]);MON.rotation.y=Math.atan2(CAMS[ci].p[0]-CAMS[ci].m[0],CAMS[ci].p[2]-CAMS[ci].m[1])}
- var dv=GW.dome.visible;var ox=rend.shadowMap.autoUpdate;rend.shadowMap.autoUpdate=false;rend.setRenderTarget(CC.rts[ci]);rend.render(scene,CC.cams[ci]);rend.setRenderTarget(null);rend.shadowMap.autoUpdate=ox;
+ var dv=GW.dome.visible;var ox=rend.shadowMap.autoUpdate;rend.shadowMap.autoUpdate=false;GW.mons.forEach(function(m){m.visible=false});rend.setRenderTarget(CC.rts[ci]);rend.render(scene,CC.cams[ci]);rend.setRenderTarget(null);GW.mons.forEach(function(m){m.visible=true});rend.shadowMap.autoUpdate=ox;
  if(showM&&!(G.live&&G.live.kind==='emerge'&&G.live.on))MON.visible=false;spot.visible=sv;if(PSH)PSH.g.visible=ps}
 
 /* ---------- lights ---------- */
