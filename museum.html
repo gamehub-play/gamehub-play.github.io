@@ -3145,7 +3145,7 @@ void main() {
  * SPDX-License-Identifier: MIT
  */
 </script>
-<script src="mu0.js"></script><script src="mu1.js"></script><script src="mu2.js"></script><script src="mu3.js"></script><script src="mu4.js"></script><script src="mu5.js"></script>
+<script src="mu0.js"></script><script src="mu1.js"></script><script src="mu2.js"></script><script src="mu3.js"></script><script src="mu4.js"></script><script src="mu5.js"></script><script src="mu6.js"></script><script src="mu7.js"></script>
 <script>(function(){
 'use strict';
 var W=44,D=60,H=7; // hall width (x), depth (z), height
@@ -3709,6 +3709,18 @@ function gpWorld(){
  col(-1.7,1.7,D/2-.35,D/2+.3);
  signsUpdate=function(){GW.signStaff.material.map=canvasLabel(T('staff'),256,64,'#222','#9a9a8a','bold 34px Georgia,"Geeza Pro",serif');GW.signStaff.material.needsUpdate=true;GW.signSec.material.map=canvasLabel(T('security'),256,64,'#222','#9a9a8a','bold 34px Georgia,"Geeza Pro",serif');GW.signSec.material.needsUpdate=true;GW.exitSign.material.emissiveMap=canvasLabel(T('exit'),256,76,'#fff','#000','bold 54px Georgia,"Geeza Pro",serif');GW.exitSign.material.needsUpdate=true};
  signsUpdate();
+ // ---- fossil cases ----
+ (function(){var FS=function(n){return window.DATA&&window.DATA['g_'+n]||'fossil/'+n+'.glb'};
+  var wood=std(0x2a1d14,.55),brass=new THREE.MeshStandardMaterial({color:0xb8913a,roughness:.3,metalness:.85}),glass=new THREE.MeshStandardMaterial({color:0xbfd0e8,transparent:true,opacity:.12,roughness:.05,depthWrite:false});
+  var defs=[['triceratops_opt',-8.5,3.5,'artifact 31',.95,.1],['allosaurus_opt',8.5,3.5,'artifact 32',.55,-.3]];
+  defs.forEach(function(d){var g=new THREE.Group();g.position.set(d[1],0,d[2]);scene.add(g);
+   box(1.5,.95,1.1,wood,0,.475,0,g);box(1.6,.06,1.2,brass,0,.97,0,g);box(.05,.05,.05,brass,0,0,0,g);
+   var gl=new THREE.Mesh(new THREE.BoxGeometry(1.4,.95,1.0),glass);gl.position.set(0,1.5,0);gl.userData.nohit=true;g.add(gl);
+   [[-.7,-.5],[.7,-.5],[-.7,.5],[.7,.5]].forEach(function(c){box(.04,.95,.04,brass,c[0],1.5,c[1],g)});box(1.44,.04,1.04,brass,0,1.99,0,g);
+   var pl=box(.4,.08,.02,brass,0,.5,.56,g);
+   if(!THREE.GLTFLoader)return;if(!window.__fgl)window.__fgl=new THREE.GLTFLoader();
+   window.__fgl.load(FS(d[0]),function(gt){var o=gt.scene.clone(true);var b=new THREE.Box3().setFromObject(o),sz=b.getSize(new THREE.Vector3());var m=Math.max(sz.x,sz.y,sz.z),sc=1.15/m;o.scale.setScalar(sc);o.rotation.y=d[5];b.setFromObject(o);var ct=b.getCenter(new THREE.Vector3());o.position.set(-ct.x,1.0-b.min.y+.02,-ct.z);o.traverse(function(q){if(q.isMesh){q.castShadow=true;q.receiveShadow=true}});g.add(o)});
+   addObj(g,d[3]);col(d[1]-.9,d[1]+.9,d[2]-.7,d[2]+.7)})})();
 }
 
 /* ---------- the guard ---------- */
@@ -3969,5 +3981,5 @@ function gpInit(){
 window.Museum={G:G,GD:GD,GW:GW,CC:CC,startRound:startRound,lightsSeq:lightsSeq,startLive:startLive,pick:pick,pool:function(){return G.pool},open:open,lightsSeq:lightsSeq,set:function(x,z,y,p){pos.x=x;pos.z=z;yaw=y;pitch=p||0},objs:OBJS,lights:function(on){window.__museum_fix&&0;scene.children.forEach(function(c){if(c.isAmbientLight)c.intensity=on?1.4:.5})}};
 })();
 </script>
-<script>(function(){var b=document.getElementById('go');b.onclick=function(){if((window.__mu||0)<6){document.getElementById('ld').textContent='Still loading, try again in a few seconds';return}document.getElementById('ov').style.display='none';Museum.open();var c=document.querySelector('canvas');c&&c.requestPointerLock&&c.requestPointerLock()};var t=setInterval(function(){var l=document.getElementById('ld');l.textContent=(window.__mu||0)<6?'Loading '+(window.__mu||0)+'/6...':'Ready';if((window.__mu||0)>=6)clearInterval(t)},300);})()</script>
+<script>(function(){var b=document.getElementById('go');b.onclick=function(){if((window.__mu||0)<8){document.getElementById('ld').textContent='Still loading, try again in a few seconds';return}document.getElementById('ov').style.display='none';Museum.open();var c=document.querySelector('canvas');c&&c.requestPointerLock&&c.requestPointerLock()};var t=setInterval(function(){var l=document.getElementById('ld');l.textContent=(window.__mu||0)<8?'Loading '+(window.__mu||0)+'/8...':'Ready';if((window.__mu||0)>=8)clearInterval(t)},300);})()</script>
 </body></html>
