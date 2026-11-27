@@ -1871,7 +1871,7 @@ function build(sp){
  function bkLabel(){var en=(document.querySelector('.bd-lang.bd-on')||{}).textContent==='English';bk.textContent=en?'Lobby':'\u0627\u0644\u0644\u0648\u0628\u064A';}
  bk.onclick=function(){var m=document.querySelector('.bd-wrap.bd-new');if(m&&m.offsetHeight>0)m.style.display='none';sp.style.display='';window.scrollTo(0,0)};
  setInterval(function(){var m=document.querySelector('.bd-wrap.bd-new'),show=sp.style.display==='none'&&m&&m.offsetHeight>0&&!document.querySelector('.bd-pick');if(show){bkLabel();if(bk.style.display==='none')bk.style.display='block'}else if(bk.style.display!=='none')bk.style.display='none'},500);
- var bl=document.createElement('div');bl.textContent='build 195';bl.style.cssText='position:fixed;right:10px;bottom:6px;font-size:10px;opacity:.28;color:#b8c4e0;z-index:1;pointer-events:none;background:none';document.body.appendChild(bl);bl.style.zIndex='2147483000';
+ var bl=document.createElement('div');bl.textContent='build 196';bl.style.cssText='position:fixed;right:10px;bottom:6px;font-size:10px;opacity:.28;color:#b8c4e0;z-index:1;pointer-events:none;background:none';document.body.appendChild(bl);bl.style.zIndex='2147483000';
  var st2=document.createElement('style');st2.textContent='.bd-splash.nl .bd-topbar{display:none!important}.bd-splash.nl .frp-bar{padding-top:10px!important}body.nl-lobby .bd-modal .bd-setrow:has(#bd-t-dark),body.nl-lobby .bd-modal .bd-setrow:has(.bd-langbar){display:none!important}';document.head.appendChild(st2);
  var inL=false,enterT=0;
  function enBtn(w){return [].slice.call(document.querySelectorAll('.bd-lang')).filter(function(x){return (w==='en')===/English/.test(x.textContent)})[0]}
@@ -2768,7 +2768,15 @@ var LVS={2:[
   cw:[{x:700,y:290,w:40,h:130,col:1},{x:1150,y:150,w:40,h:130,col:0}],
   btn:[{x:780,y:420,w:50,id:1},{x:1050,y:280,w:50,id:2}],
   gate:[{x:430,y:490,w:70,h:70,id:1,inv:1},{x:900,y:350,w:60,h:70,id:2,inv:1}],
-  key:{x:1600,y:115},door:{x:1950,y:280}}
+  key:{x:1600,y:115},door:{x:1950,y:280}},
+ {w:2750,sp:[300,520],rope:0,
+  h:{en:'The wall opens only while a button is held. One holds it, the other pushes the crate onto the second button. Then the trampoline works only while its button is held: take turns to fly across the gap.',ar:'\u0627\u0644\u062d\u064a\u0637\u0629 \u0628\u062a\u0641\u062a\u062d \u0648\u0627\u0646\u062a \u0648\u0627\u0642\u0641 \u0639\u0644\u0649 \u0627\u0644\u0632\u0631\u0627\u0631 \u0628\u0633. \u0648\u0627\u062d\u062f \u064a\u0642\u0641 \u0639\u0644\u064a\u0647 \u0648\u0627\u0644\u062a\u0627\u0646\u064a \u064a\u0632\u0642 \u0627\u0644\u0635\u0646\u062f\u0648\u0642 \u0639\u0644\u0649 \u0627\u0644\u0632\u0631\u0627\u0631 \u0627\u0644\u062a\u0627\u0646\u064a. \u0628\u0639\u062f\u064a\u0646 \u0627\u0644\u062a\u0631\u0627\u0645\u0628\u0648\u0644\u064a\u0646 \u0628\u064a\u0634\u062a\u063a\u0644 \u0648\u0627\u0646\u062a \u0648\u0627\u0642\u0641 \u0639\u0644\u0649 \u0632\u0631\u0627\u0631\u0647\u060c \u0627\u062a\u0628\u0627\u062f\u0644\u0648\u0627 \u062a\u0637\u064a\u0631\u0648\u0627 \u0641\u0648\u0642 \u0627\u0644\u0641\u062c\u0648\u0629.'},
+  p:[[-400,560,1960,700],[1800,260,800,500],[2250,130,100,20]],
+  btn:[{x:500,y:560,w:50,id:1},{x:1300,y:560,w:50,id:1},{x:1100,y:560,w:50,id:3},{x:2000,y:260,w:50,id:3}],
+  gate:[{x:800,y:300,w:40,h:260,id:1}],
+  bl:[{x:950,y:500,w:60,h:60}],
+  tr:[{x:1500,y:560,w:60,id:3,p:1300}],
+  key:{x:2300,y:95},door:{x:2450,y:260}}
 ]};
 var PLAT=LVS[2][0].p,CPS=[];
 var BC=['#999','#2fd05a','#a64dff','#ffd60a','#ff7a00'];
@@ -2945,7 +2953,7 @@ Game.prototype.puz=function(dt){
   bt.on=!!pr[bt.id]}
  me.pr=pr;
  /* trampolines */
- for(i=0;i<lv.tr.length;i++){var t=lv.tr[i];for(j=0;j<cs.length;j++){c=cs[j];r=rect(c);if(r.r>t.x&&r.l<t.x+t.w&&c.vy>=0&&r.b>=t.y-3&&r.b<=t.y+16){c.vy=-(t.p||1150);c.g=false;c.coy=0;c.ssy+=6;c.ssx-=4;t.sq=.2}}if(t.sq>0)t.sq-=dt}
+ for(i=0;i<lv.tr.length;i++){var t=lv.tr[i];if(t.id&&!pr[t.id])continue;for(j=0;j<cs.length;j++){c=cs[j];r=rect(c);if(r.r>t.x&&r.l<t.x+t.w&&c.vy>=0&&r.b>=t.y-3&&r.b<=t.y+16){c.vy=-(t.p||1150);c.g=false;c.coy=0;c.ssy+=6;c.ssx-=4;t.sq=.2}}if(t.sq>0)t.sq-=dt}
  /* key */
  k.cd-=dt;
  if(k.h>=0){var hc=cs[k.h];k.x+=(hc.x-k.x)*Math.min(1,dt*20);k.y+=(hc.y-S/2-16-k.y)*Math.min(1,dt*20);
@@ -3084,7 +3092,7 @@ Game.prototype.draw=function(dt){
  /* checkpoints + goal */
  for(i=0;i<CPS.length;i++){var cp=CPS[i],on=i<=me.cp;cx.fillStyle='#3b2f1f';cx.fillRect(cp.x-2,cp.y-90,4,90);cx.fillStyle=on?'#17b8a6':'#9a9078';cx.beginPath();cx.moveTo(cp.x+2,cp.y-90);cx.lineTo(cp.x+36,cp.y-76);cx.lineTo(cp.x+2,cp.y-62);cx.fill();}
  var lv=me.lv,gx=lv.door.x+60,gy=lv.door.y,op=me.doorOpen;
- for(i=0;i<lv.tr.length;i++){var tr=lv.tr[i],th=op?0:0;cx.fillStyle='#8a2a5a';cx.fillRect(tr.x,tr.y-6,tr.w,6);cx.fillStyle='#ff5ea8';cx.fillRect(tr.x+2,tr.y-(tr.sq>0?8:18),tr.w-4,tr.sq>0?4:8)}
+ for(i=0;i<lv.tr.length;i++){var tr=lv.tr[i],th=op?0:0;if(tr.id&&!me.pr[tr.id]){cx.strokeStyle=BC[tr.id];cx.globalAlpha=.7;cx.lineWidth=2;cx.setLineDash([6,6]);cx.strokeRect(tr.x+1,tr.y-19,tr.w-2,18);cx.setLineDash([]);cx.globalAlpha=1;continue}cx.fillStyle='#8a2a5a';cx.fillRect(tr.x,tr.y-6,tr.w,6);cx.fillStyle='#ff5ea8';cx.fillRect(tr.x+2,tr.y-(tr.sq>0?8:18),tr.w-4,tr.sq>0?4:8)}
  for(i=0;i<lv.btn.length;i++){var bb=lv.btn[i];cx.fillStyle='#444';cx.fillRect(bb.x-3,bb.y-3,bb.w+6,3);cx.fillStyle=BC[bb.id];cx.fillRect(bb.x,bb.on?bb.y-4:bb.y-9,bb.w,bb.on?4:9);cx.fillStyle='rgba(0,0,0,.35)';cx.fillRect(bb.x,bb.on?bb.y-1:bb.y-2,bb.w,2)}
  for(i=0;i<lv.gate.length;i++){var ga=lv.gate[i];if(ga.act){cx.fillStyle=BC[ga.id];cx.fillRect(ga.x,ga.y,ga.w,ga.h);cx.fillStyle='rgba(255,255,255,.35)';cx.fillRect(ga.x,ga.y,ga.w,4);cx.strokeStyle='#222';cx.lineWidth=2;cx.strokeRect(ga.x+1,ga.y+1,ga.w-2,ga.h-2)}else{cx.strokeStyle=BC[ga.id];cx.globalAlpha=.7;cx.lineWidth=2;cx.setLineDash([6,6]);cx.strokeRect(ga.x+1,ga.y+1,ga.w-2,ga.h-2);cx.setLineDash([]);cx.globalAlpha=1}}
  for(i=0;i<lv.cw.length;i++){var cw=lv.cw[i];if(cw.broken)continue;cx.fillStyle='#222';cx.fillRect(cw.x-2,cw.y-2,cw.w+4,cw.h+4);cx.fillStyle=COLS[cw.col][0];cx.fillRect(cw.x,cw.y,cw.w,cw.h);cx.fillStyle='rgba(255,255,255,.28)';for(var cy2=cw.y+6;cy2<cw.y+cw.h;cy2+=22)cx.fillRect(cw.x+4,cy2,cw.w-8,6);cx.fillStyle='rgba(0,0,0,.25)';cx.fillRect(cw.x+cw.w-6,cw.y,6,cw.h)}
