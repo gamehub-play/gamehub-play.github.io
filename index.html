@@ -458,6 +458,9 @@ opacity: 0; animation: bd-sparkfly 1.1s ease-out both; }
 
 .bd-wrap .bd-modehint,.bd-wrap .bd-modehint:empty{display:block!important;min-height:18px;height:18px;line-height:18px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;max-width:100%}
 @media (min-width:900px) and (min-aspect-ratio:115/100){.bd-wrap[style*="display: flex"]:has(>#bd-boardwrap)>.bd-modehint{min-height:19px;height:19px;line-height:19px}}
+
+@media (max-width:899px){.bd-wrap .bd-status{min-height:2.7em;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.25}}
+.bd-wrap .bd-timer{visibility:hidden}
 /* b187: no layout jump on click, no button shake */
 .bd-wrap .bd-hud{min-height:62px}
 .bd-wrap .bd-abil{min-height:46px}
@@ -1868,7 +1871,7 @@ function build(sp){
  function bkLabel(){var en=(document.querySelector('.bd-lang.bd-on')||{}).textContent==='English';bk.textContent=en?'Lobby':'\u0627\u0644\u0644\u0648\u0628\u064A';}
  bk.onclick=function(){var m=document.querySelector('.bd-wrap.bd-new');if(m&&m.offsetHeight>0)m.style.display='none';sp.style.display='';window.scrollTo(0,0)};
  setInterval(function(){var m=document.querySelector('.bd-wrap.bd-new'),show=sp.style.display==='none'&&m&&m.offsetHeight>0&&!document.querySelector('.bd-pick');if(show){bkLabel();if(bk.style.display==='none')bk.style.display='block'}else if(bk.style.display!=='none')bk.style.display='none'},500);
- var bl=document.createElement('div');bl.textContent='build 189';bl.style.cssText='position:fixed;right:10px;bottom:6px;font-size:10px;opacity:.28;color:#b8c4e0;z-index:1;pointer-events:none;background:none';sp.appendChild(bl);
+ var bl=document.createElement('div');bl.textContent='build 191';bl.style.cssText='position:fixed;right:10px;bottom:6px;font-size:10px;opacity:.28;color:#b8c4e0;z-index:1;pointer-events:none;background:none';document.body.appendChild(bl);bl.style.zIndex='2147483000';
  var st2=document.createElement('style');st2.textContent='.bd-splash.nl .bd-topbar{display:none!important}.bd-splash.nl .frp-bar{padding-top:10px!important}body.nl-lobby .bd-modal .bd-setrow:has(#bd-t-dark),body.nl-lobby .bd-modal .bd-setrow:has(.bd-langbar){display:none!important}';document.head.appendChild(st2);
  var inL=false,enterT=0;
  function enBtn(w){return [].slice.call(document.querySelectorAll('.bd-lang')).filter(function(x){return (w==='en')===/English/.test(x.textContent)})[0]}
