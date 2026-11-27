@@ -1878,7 +1878,7 @@ function build(sp){
  function bkLabel(){var en=(document.querySelector('.bd-lang.bd-on')||{}).textContent==='English';bk.textContent=en?'Lobby':'\u0627\u0644\u0644\u0648\u0628\u064A';}
  bk.onclick=function(){var m=document.querySelector('.bd-wrap.bd-new');if(m&&m.offsetHeight>0)m.style.display='none';sp.style.display='';window.scrollTo(0,0)};
  setInterval(function(){var m=document.querySelector('.bd-wrap.bd-new'),show=sp.style.display==='none'&&m&&m.offsetHeight>0&&!document.querySelector('.bd-pick');if(show){bkLabel();if(bk.style.display==='none')bk.style.display='block'}else if(bk.style.display!=='none')bk.style.display='none'},500);
- var bl=document.createElement('div');bl.textContent='build 199';bl.style.cssText='position:fixed;right:10px;bottom:6px;font-size:10px;opacity:.28;color:#b8c4e0;z-index:1;pointer-events:none;background:none';document.body.appendChild(bl);bl.style.zIndex='2147483000';
+ var bl=document.createElement('div');bl.textContent='build 200';bl.style.cssText='position:fixed;right:10px;bottom:6px;font-size:10px;opacity:.28;color:#b8c4e0;z-index:1;pointer-events:none;background:none';document.body.appendChild(bl);bl.style.zIndex='2147483000';
  var st2=document.createElement('style');st2.textContent='.bd-splash.nl .bd-topbar{display:none!important}.bd-splash.nl .frp-bar{padding-top:10px!important}body.nl-lobby .bd-modal .bd-setrow:has(#bd-t-dark),body.nl-lobby .bd-modal .bd-setrow:has(.bd-langbar){display:none!important}';document.head.appendChild(st2);
  var inL=false,enterT=0;
  function enBtn(w){return [].slice.call(document.querySelectorAll('.bd-lang')).filter(function(x){return (w==='en')===/English/.test(x.textContent)})[0]}
@@ -2789,7 +2789,12 @@ var LVS={2:[
   p:[[-400,560,2300,700],[500,420,400,140],[900,280,400,280],[1300,140,500,420]],
   btn:[{x:640,y:420,w:50,id:1},{x:1050,y:280,w:50,id:2},{x:1420,y:140,w:50,id:3}],
   gate:[{x:430,y:490,w:70,h:70,id:1,inv:1},{x:800,y:350,w:60,h:70,id:2,inv:1},{x:1200,y:210,w:60,h:70,id:3,inv:1}],
-  key:{x:420,y:540},door:{x:1650,y:140}}
+  key:{x:420,y:540},door:{x:1650,y:140}},
+ {w:5300,sp:[300,520],rope:1,
+  h:{en:'Rope level: you are tied together. Boost your partner up the 150px steps and pull each other over the gaps. The key is on the highest ledge. Take it to the door.',ar:'\u0645\u0631\u062d\u0644\u0629 \u0627\u0644\u062d\u0628\u0644: \u0627\u0646\u062a\u0648\u0627 \u0645\u0631\u0628\u0648\u0637\u064a\u0646. \u0627\u0631\u0641\u0639\u0648\u0627 \u0628\u0639\u0636 \u0639\u0644\u0649 \u0627\u0644\u0633\u0644\u0627\u0644\u0645 \u0627\u0644\u0639\u0627\u0644\u064a\u0629 \u0648\u0627\u0633\u062d\u0628\u0648\u0627 \u0628\u0639\u0636 \u0641\u0648\u0642 \u0627\u0644\u0641\u062c\u0648\u0627\u062a. \u0627\u0644\u0645\u0641\u062a\u0627\u062d \u0639\u0644\u0649 \u0623\u0639\u0644\u0649 \u062d\u062a\u0629. \u0648\u0635\u0644\u0648\u0647 \u0644\u0644\u0628\u0627\u0628.'},
+  p:[[-400,560,1000,700],[720,560,500,700],[1220,410,400,850],[1760,560,300,700],[2060,410,400,850],[2460,260,920,1000],[3380,560,700,700],[4080,410,1000,850]],
+  c:[{x:1880,y:560},{x:3000,y:260}],
+  key:{x:3300,y:225},door:{x:4700,y:410}}
 ]};
 var PLAT=LVS[2][0].p,CPS=[];
 var BC=['#999','#2fd05a','#a64dff','#ffd60a','#ff7a00'];
@@ -2926,7 +2931,7 @@ Game.prototype.solid=function(x,y){var PL=this.PL||PLAT;for(var i=0;i<PL.length;
 Game.prototype.loadLevel=function(n){
  var me=this,set=LVS[me.n]||LVS[2],d=set[Math.min(n,set.length-1)],t0=me.t;
  me.lv=JSON.parse(JSON.stringify(d));var lv=me.lv;
- PLAT=lv.p;CPS=[];GOALX=lv.door.x;GOALY=lv.door.y;
+ PLAT=lv.p;CPS=lv.c||[];GOALX=lv.door.x;GOALY=lv.door.y;
  lv.btn=lv.btn||[];lv.gate=lv.gate||[];lv.cw=lv.cw||[];lv.bl=lv.bl||[];lv.tr=lv.tr||[];
  for(var i=0;i<lv.bl.length;i++){lv.bl[i].bl=1;lv.bl[i].vy=0}
  me.key={x:lv.key.x,y:lv.key.y,h:-1,cd:0};me.doorOpen=false;me.pr={};me.puzWin=false;
@@ -2973,7 +2978,7 @@ Game.prototype.puz=function(dt){
   if(k.cd<=0)for(j=0;j<cs.length;j++){if(j===k.h)continue;var d2=Math.abs(cs[j].x-k.x)+Math.abs(cs[j].y-k.y);if(d2<40){k.h=j;k.cd=.8;break}}}
  else if(k.h===-1){for(j=0;j<cs.length;j++){if(Math.abs(cs[j].x-k.x)<S&&Math.abs(cs[j].y-k.y)<S+8){k.h=j;k.cd=.8;me.toast(T('key'));break}}}
  if(k.h>=0&&!me.doorOpen){var dc=cs[k.h];if(Math.abs(dc.x-(lv.door.x+60))<46&&Math.abs(dc.y-(lv.door.y-S/2))<70){me.doorOpen=true;k.h=-2}}
- if(me.doorOpen){var all=true;for(j=0;j<cs.length;j++){c=cs[j];if(Math.abs(c.x-(lv.door.x+60))>70||Math.abs(c.y-(lv.door.y-S/2))>70)all=false}if(all)me.puzWin=true}
+ if(me.doorOpen){var all=true;for(j=0;j<cs.length;j++){c=cs[j];if(Math.abs(c.x-(lv.door.x+60))>(lv.rope?110:70)||Math.abs(c.y-(lv.door.y-S/2))>70)all=false}if(all)me.puzWin=true}
 };
 Game.prototype.burst=function(o){for(var i=0;i<18;i++)this.parts.push({x:o.x+Math.random()*o.w,y:o.y+Math.random()*o.h,vx:(Math.random()-.5)*260,vy:-60-Math.random()*160,l:.7,m:.7,s:5+Math.random()*5,c:COLS[o.col][0],k:0})};
 Game.prototype.step=function(dt){
@@ -3042,11 +3047,11 @@ Game.prototype.step=function(dt){
  }
  /* checkpoints, respawn, goal */
  for(j=0;j<CPS.length;j++)if(j>me.cp&&lead.x>CPS[j].x){me.cp=j;me.cpPos=CPS[j];me.toast(T('cp'))}
- var allDone=true,fell=false;
+ var allDone=true,fell=false,lv0=me.lv;
  for(i=0;i<cs.length;i++){c=cs[i];
   if(c.y>1250)fell=true;
   if(c.x<GOALX)allDone=false}
- if(fell){me.toast(T('fell'));me.loadLevel(me.stage|0);me.running=true;return}
+ if(fell){me.toast(T('fell'));if(lv0.rope&&me.cpPos){var sp=me.cpPos;for(i=0;i<cs.length;i++){c=cs[i];c.x=sp.x-i*40;c.y=sp.y-60;c.vx=0;c.vy=0}me.snapRopes()}else{me.loadLevel(me.stage|0);me.running=true;return}}
  if(me.puzWin){me.won=true;me.showWin()}
  /* jelly spring + particles */
  for(i=0;i<cs.length;i++){c=cs[i];
