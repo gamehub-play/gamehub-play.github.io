@@ -1878,7 +1878,7 @@ function build(sp){
  function bkLabel(){var en=(document.querySelector('.bd-lang.bd-on')||{}).textContent==='English';bk.textContent=en?'Lobby':'\u0627\u0644\u0644\u0648\u0628\u064A';}
  bk.onclick=function(){var m=document.querySelector('.bd-wrap.bd-new');if(m&&m.offsetHeight>0)m.style.display='none';sp.style.display='';window.scrollTo(0,0)};
  setInterval(function(){var m=document.querySelector('.bd-wrap.bd-new'),show=sp.style.display==='none'&&m&&m.offsetHeight>0&&!document.querySelector('.bd-pick');if(show){bkLabel();if(bk.style.display==='none')bk.style.display='block'}else if(bk.style.display!=='none')bk.style.display='none'},500);
- var bl=document.createElement('div');bl.textContent='build 207';bl.style.cssText='position:fixed;right:10px;bottom:6px;font-size:10px;opacity:.28;color:#b8c4e0;z-index:1;pointer-events:none;background:none';document.body.appendChild(bl);bl.style.zIndex='2147483000';
+ var bl=document.createElement('div');bl.textContent='build 208';bl.style.cssText='position:fixed;right:10px;bottom:6px;font-size:10px;opacity:.28;color:#b8c4e0;z-index:1;pointer-events:none;background:none';document.body.appendChild(bl);bl.style.zIndex='2147483000';
  var st2=document.createElement('style');st2.textContent='.bd-splash.nl .bd-topbar{display:none!important}.bd-splash.nl .frp-bar{padding-top:10px!important}body.nl-lobby .bd-modal .bd-setrow:has(#bd-t-dark),body.nl-lobby .bd-modal .bd-setrow:has(.bd-langbar){display:none!important}';document.head.appendChild(st2);
  var inL=false,enterT=0;
  function enBtn(w){return [].slice.call(document.querySelectorAll('.bd-lang')).filter(function(x){return (w==='en')===/English/.test(x.textContent)})[0]}
@@ -2847,7 +2847,14 @@ LVS[3]=[
   cw:[{x:1640,y:300,w:36,h:260,col:2}],
   tr:[{x:300,y:560,w:70,p:1250,id:1},{x:1100,y:560,w:70,p:1250,id:3}],
   bl:[{x:440,y:500,w:60,h:60},{x:720,y:240,w:60,h:60}],
-  key:{x:1330,y:295},door:{x:1950,y:560}}
+  key:{x:1330,y:295},door:{x:1950,y:560}},
+ {w:2200,sp:[100,520],rope:0,
+  h:{en:'Climb the tower with trampolines. The one on the ground holds a button so the second can bounce to the first floor. The second holds another button so the third bounces to the top floor and takes the key. Then only the red cube can break the red wall.',ar:'\u0627\u0637\u0644\u0639\u0648\u0627 \u0628\u0631\u062c \u0628\u0627\u0644\u062a\u0631\u0627\u0645\u0628\u0648\u0644\u064a\u0646: \u0627\u0644\u0644\u064a \u062a\u062d\u062a \u064a\u0642\u0641 \u0639\u0644\u0649 \u0632\u0631\u0627\u0631 \u0639\u0634\u0627\u0646 \u0627\u0644\u062a\u0627\u0646\u064a \u064a\u062a\u0646\u0637\u0637 \u0644\u0644\u062f\u0648\u0631 \u0627\u0644\u0627\u0648\u0644\u060c \u0648\u0627\u0644\u062a\u0627\u0646\u064a \u064a\u0642\u0641 \u0639\u0644\u0649 \u0632\u0631\u0627\u0631 \u062a\u0627\u0646\u064a \u0639\u0634\u0627\u0646 \u0627\u0644\u062a\u0627\u0644\u062a \u064a\u062a\u0646\u0637\u0637 \u0644\u0644\u062f\u0648\u0631 \u0627\u0644\u062a\u0627\u0646\u064a \u0648\u064a\u062c\u064a\u0628 \u0627\u0644\u0645\u0641\u062a\u0627\u062d. \u0628\u0639\u062f\u064a\u0646 \u0627\u0644\u062d\u064a\u0637\u0629 \u0627\u0644\u062d\u0645\u0631\u0627 \u0644\u0627\u0632\u0645 \u0627\u0644\u0627\u062d\u0645\u0631 \u064a\u0643\u0633\u0631\u0647\u0627.'},
+  p:[[-400,560,2700,700],[420,380,300,20],[900,220,260,20]],
+  btn:[{x:150,y:560,w:50,id:1},{x:470,y:380,w:50,id:2}],
+  cw:[{x:1500,y:300,w:36,h:260,col:1}],
+  tr:[{x:270,y:560,w:70,p:1250,id:1},{x:640,y:380,w:70,p:1250,id:2}],
+  key:{x:1050,y:185},door:{x:1950,y:560}}
 ];
 var PLAT=LVS[2][0].p,CPS=[];
 var BC=['#999','#2fd05a','#a64dff','#ffd60a','#ff7a00'];
